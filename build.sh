@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 if [ `uname` == Darwin ]; then
     PYTHON_PREFIX=/Users/ilan/a/envs/py37
 
@@ -10,4 +9,10 @@ if [ `uname` == Darwin ]; then
         -L${PYTHON_PREFIX}/lib -lpython3.7m main.o -o wfc
     install_name_tool -change @rpath/libpython3.7m.dylib \
                       ${PYTHON_PREFIX}/lib/libpython3.7m.dylib ./wfc
+fi
+if [ `uname` == Linux ]; then
+    PYTHON_PREFIX=/usr
+
+    gcc -Wall -I${PYTHON_PREFIX}/include/python3.7m -c main.c -o main.o
+    gcc -L${PYTHON_PREFIX}/lib -lpython3.7m main.o -o wfc
 fi
