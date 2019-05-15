@@ -43,4 +43,4 @@ to their frequency count.  This function looks like this:
 
 Obviously, we need to include `Python.h` and link to `libpython` to make
 this work.  The entire program, and a build script which works on Linux
-and MacOS can be found <a href="main.c">here</a>.
+and MacOS can be found <a href="https://github.com/ilanschnell/wfc">here</a>.
