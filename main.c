@@ -1,5 +1,6 @@
 /*
   Author: Ilan Schnell
+  Example of how to use Python as a C library.  We require Python 3.7
 */
 
 #include "Python.h"
