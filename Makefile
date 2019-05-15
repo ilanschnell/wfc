@@ -5,4 +5,4 @@ clean:
 	rm -f main.o wfc
 
 test: wfc
-	./wfc -s 1342.txt
+	./wfc -s LICENSE.txt
