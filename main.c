@@ -46,7 +46,7 @@ int process_fp(PyObject *dict, FILE *fp)
             s[i++] = c;
         }
         if (i > 255) {
-            printf("Buffer too small.\n");
+            fprintf(stderr, "Error: Buffer too small.\n");
             return -1;
         }
     }
@@ -60,7 +60,7 @@ int process_file(PyObject *dict, char *filename)
 
     fp = fopen(filename, "r");
     if (fp == NULL) {
-        printf("Error: Can't open `%s` for reading.\n", filename);
+        fprintf(stderr, "Error: Can't open `%s` for reading.\n", filename);
         return -1;
     }
     if (process_fp(dict, fp) < 0) {
