@@ -13,6 +13,6 @@ fi
 if [ `uname` == Linux ]; then
     PYTHON_PREFIX=/usr
 
-    gcc -Wall -I${PYTHON_PREFIX}/include/python3.7m -c main.c -o main.o
-    gcc -L${PYTHON_PREFIX}/lib -lpython3.7m main.o -o wfc
+    gcc -Wall -I${PYTHON_PREFIX}/include/python3.10 -c main.c -o main.o
+    gcc -L${PYTHON_PREFIX}/lib -lpython3.10 main.o -o wfc
 fi
