@@ -14,7 +14,8 @@ int summary;
 
 /* add `str` to `dict`, and increase its value by 1 (or set its value
    to 1 initially) */
-void add_word(PyObject *dict, char *str)
+static void
+add_word(PyObject *dict, char *str)
 {
     PyObject *value;
     long cnt;
@@ -25,17 +26,19 @@ void add_word(PyObject *dict, char *str)
     PyDict_SetItemString(dict, str, PyLong_FromLong(cnt));
 }
 
-
 /* process the file pointer, and add all words (separated by whitespace)
    to the dictionary */
-int process_fp(PyObject *dict, FILE *fp)
+static int
+process_fp(PyObject *dict, FILE *fp)
 {
-    char s[256];
+#define BUFFEER_SIZE  256
+    char s[BUFFEER_SIZE];
     int c, i = 0;
 
     while (1) {
         c = fgetc(fp);
-        if (c == 9 || c == 10 || c == 13 || c == 32 || c == EOF) {
+        if (c == ' ' || c == '\n' || c == '\r' ||
+                  c == '\t' || c == '\v' || c == EOF) {
             s[i] = '\0';
             if (i)
                 add_word(dict, s);
@@ -45,16 +48,18 @@ int process_fp(PyObject *dict, FILE *fp)
         } else {
             s[i++] = c;
         }
-        if (i > 255) {
-            fprintf(stderr, "Error: Buffer too small.\n");
+        if (i >= BUFFEER_SIZE) {
+            fprintf(stderr, "Error: buffer size %d too small.\n",
+                    BUFFEER_SIZE);
             return -1;
         }
     }
+#undef BUFFEER_SIZE
     return 0;
 }
 
-
-int process_file(PyObject *dict, char *filename)
+static int
+process_file(PyObject *dict, char *filename)
 {
     FILE *fp;
 
@@ -71,8 +76,8 @@ int process_file(PyObject *dict, char *filename)
     return 0;
 }
 
-
-void display(PyObject *dict)
+static void
+display(PyObject *dict)
 {
     PyObject *key, *value;
     Py_ssize_t pos = 0;
@@ -90,8 +95,8 @@ void display(PyObject *dict)
     }
 }
 
-
-void help(void)
+static void
+help(void)
 {
     printf("\n\
 Calculates the frequency of words in file(s) or stdin.\n\
@@ -102,7 +107,8 @@ Options:\n\
 
 
 /* changes the global variables: table, names, full */
-void process_options(int argc, char *argv[])
+static void
+process_options(int argc, char *argv[])
 {
     int op;
 
@@ -121,7 +127,6 @@ void process_options(int argc, char *argv[])
             exit(1);
         }
 }
-
 
 int main(int argc, char *argv[])
 {
