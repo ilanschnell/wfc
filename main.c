@@ -9,8 +9,6 @@
 /* command line options */
 int summary;
 
-#define USAGE  printf("usage: %s [-sh] [file] ...\n", argv[0])
-
 
 /* add `str` to `dict`, and increase its value by 1 (or set its value
    to 1 initially) */
@@ -42,9 +40,9 @@ process_fp(PyObject *dict, FILE *fp)
             s[i] = '\0';
             if (i)
                 add_word(dict, s);
-            i = 0;
             if (c == EOF)
                 break;
+            i = 0;
         } else {
             s[i++] = c;
         }
@@ -112,6 +110,7 @@ process_options(int argc, char *argv[])
 {
     int op;
 
+#define USAGE  printf("usage: %s [-sh] [file] ...\n", argv[0])
     summary = 0;
     while ((op = getopt(argc, argv, "hs")) != -1)
         switch(op) {
@@ -126,6 +125,7 @@ process_options(int argc, char *argv[])
             USAGE;
             exit(1);
         }
+#undef USAGE
 }
 
 int main(int argc, char *argv[])
