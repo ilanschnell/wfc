@@ -29,8 +29,8 @@ add_word(PyObject *dict, char *str)
 static int
 process_fp(PyObject *dict, FILE *fp)
 {
-#define BUFFEER_SIZE  256
-    char s[BUFFEER_SIZE];
+#define BUFFER_SIZE  256
+    char s[BUFFER_SIZE];
     int c, i = 0;
 
     while (1) {
@@ -46,13 +46,13 @@ process_fp(PyObject *dict, FILE *fp)
         } else {
             s[i++] = c;
         }
-        if (i >= BUFFEER_SIZE) {
+        if (i >= BUFFER_SIZE) {
             fprintf(stderr, "Error: buffer size %d too small.\n",
-                    BUFFEER_SIZE);
+                    BUFFER_SIZE);
             return -1;
         }
     }
-#undef BUFFEER_SIZE
+#undef BUFFER_SIZE
     return 0;
 }
 
